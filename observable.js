@@ -106,12 +106,36 @@ function ex5_2() {
   observable.subscribe(observer)
 }
 
+function ex6() {
+  const observable = new Observable(subscriber => {
+    let i = 0;
+
+    const interval = setInterval(() => {
+      subscriber.next(i)
+
+      i++
+    }, 1000)
+
+    return () => {
+      console.log('good bye')
+      clearInterval(interval)
+    }
+  });
+
+  // s1 = observable.subscribe(val => console.log('1:', val))
+
+  setTimeout(() => {
+    s2 = observable.subscribe(val => console.log('2:', val))
+  }, 2000)
+}
+
 
 (() => {
-  ex1()
+  // ex1()
   // ex2()
   // ex3()
   // ex4()
   // ex5_1()
   // ex5_2()
+  ex6()
 })()

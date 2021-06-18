@@ -1,4 +1,4 @@
-const { interval, race } = require('rxjs')
+const { interval, race, of, concat } = require('rxjs')
 const { take, map } = require('rxjs/operators')
 
 function ex1() {
@@ -28,8 +28,16 @@ function ex3() {
   race(o1, o2).subscribe((val) => { console.log(val) })
 }
 
+function ex4() {
+  const o1 = interval(1000)
+  const o2 = of('a', 'b', 'c')
+
+  concat(o1, o2).subscribe((val) => { console.log(val) })
+}
+
 (() => {
-  ex1()
+  // ex1()
   // ex2()
   // ex3()
+  ex4()
 })()
